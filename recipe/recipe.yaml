@@ -26,7 +26,7 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
   host:
-    - cython >=0.15
+    - cython >=3
     - python
     - setuptools >=43
     # - pkgconfig Is only an optional dependancy and happens to make the build fail
