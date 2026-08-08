@@ -2,32 +2,32 @@ schema_version: 1
 
 context:
   name: python-libdiscid
-  version: 2.0.3
+  version: "2.1"
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/python-libdiscid-${{ version }}.tar.gz
-  sha256: f681053ebd7406dc7e11cf702afaa5a2d595a0db2de5a026c8c3fa5539eb5750
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name | replace('-', '_') }}-${{ version }}.tar.gz
+  sha256: a2d0a7773c2daf5b3d4727d84a5c7f6de9ecb5a9c1a9d53d667c20a76c0a6769
 
 build:
-  number: 8
+  number: 0
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: match(python, "<3.11")
 
 requirements:
   build:
     - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - if: build_platform != target_platform
-      then: cython
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - cython
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
   host:
-    - cython >=0.15
+    - cython >=3
     - python
     - setuptools >=43
     # - pkgconfig Is only an optional dependancy and happens to make the build fail
