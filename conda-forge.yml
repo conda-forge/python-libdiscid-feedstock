@@ -14,3 +14,5 @@ provider:
 test: native_and_emulated
 conda_build_tool: rattler-build
 conda_install_tool: pixi
+bot:
+  inspection: hint-all
